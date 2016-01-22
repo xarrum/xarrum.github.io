@@ -35,7 +35,7 @@
 			{
 				vPosNorm = vec4(uCubeSize * aVertexPos, 1.0);
 				vPos = vec4(uCubeSize * aVertexPos + uOffset, 1.0);
-				if(vPos.y <= 0.0)
+				if(vPosNorm.y <= 0.0)
 				{
 					vPos.y = -100.0;
 					vPosNorm.y = -100.0;
