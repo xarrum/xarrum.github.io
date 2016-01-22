@@ -63,7 +63,7 @@
 				float light = 1.0 - (length(vPos.xz)) / 10.0;
 				light = pow(light, 1.2);
 								
-				gl_FragColor = vec4(vec3(1.0) * line * light, uColor.w);
+				gl_FragColor = vec4(uColor.xyz * line * light, uColor.w);
 			}
 		</script>
 	</body>

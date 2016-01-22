@@ -248,11 +248,6 @@ function DrawScene(){
 	
 	cameraPosition = Vector.Zero(3).subtract(cameraPosition);
 
-	// Draw som pretty rainbow colors
-	//var cR = Math.sin(time * 0.00005 + 0.0)*0.5 + 0.5;
-	//var cG = Math.sin(time * 0.00005 + 2.0)*0.5 + 0.5;
-	//var cB = Math.sin(time * 0.00005 + 4.0)*0.5 + 0.5;
-	//gl.clearColor(cR, cG, cB, 1.0);
 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
 	// Clear the color as well as the depth buffer.
@@ -288,11 +283,14 @@ function DrawScene(){
 	gl.bindBuffer(gl.ARRAY_BUFFER, solidVertexBuffer);
 	gl.vertexAttribPointer(vertexPosAttrib, 3, gl.FLOAT, false, 0, 0);
 	
-	gl.uniform4f(colorUniform, 0.0, 0.0, 0.0, 1.0);
+	// Draw som pretty rainbow colors
+	var cR = Math.sin(time * 0.00005 + 0.0)*0.5 + 0.5;
+	var cG = Math.sin(time * 0.00005 + 2.0)*0.5 + 0.5;
+	var cB = Math.sin(time * 0.00005 + 4.0)*0.5 + 0.5;
+	gl.uniform4f(colorUniform, cR, cG, cB, 1.0);
 	
 	for( y=0; y < numCubes; y++ ){
-		for( x=0; x < numCubes; x++ ){
-		
+		for( x=0; x < numCubes; x++ ){		
 			gl.uniform3f(offsetUniform, 
 			2.0*x-numCubes+1.0, 
 			0.75 * Math.sin(x + time * cubeTimeScale) * Math.cos(y + time * cubeTimeScale), 
