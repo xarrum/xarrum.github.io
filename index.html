@@ -17,21 +17,28 @@
 		<script src="scripts/sylvester.js"></script>
 		<script src="scripts/gl_util.js"></script>
 		<script src="scripts/webgl_test.js"></script>
+		<jsconstant id="cube-size">0.75</jsconstant>
 		<script id="shader-vs" type="x-shader/x-vertex">
+			precision mediump float;
 			attribute vec3 aVertexPos;
 
 			uniform mat4 uMVMatrix;
 			uniform mat4 uPMatrix;
 			uniform vec3 uOffset;
 			
+			uniform float uCubeSize;
+			
+			varying vec4 vPosNorm;
 			varying vec4 vPos;
 
 			void main(void)
 			{
-				vPos = vec4(aVertexPos + uOffset, 1.0);
+				vPosNorm = vec4(uCubeSize * aVertexPos, 1.0);
+				vPos = vec4(uCubeSize * aVertexPos + uOffset, 1.0);
 				if(vPos.y <= 0.0)
 				{
 					vPos.y = -100.0;
+					vPosNorm.y = -100.0;
 				}
 				gl_Position = uPMatrix * uMVMatrix * vPos;
 			}
@@ -39,12 +46,24 @@
 		<script id="shader-fs" type="x-shader/x-fragment">
 			precision mediump float;
 			uniform vec4 uColor;
+			uniform float uCubeSize;
+			
+			varying vec4 vPosNorm;
 			varying vec4 vPos;
 			void main(void)
-			{
-				float brightness = 1.0 - (length(vPos.xz)) / 10.0;
-				brightness = pow(brightness, 1.2);
-				gl_FragColor = vec4(brightness * uColor.xyz, uColor.w);
+			{			
+				vec3 absPosNorm = abs(vPosNorm.xyz);
+				absPosNorm.y = clamp(vPosNorm.y, 0.0, 1.0);
+				float line = max(max(min(absPosNorm.x, absPosNorm.y), min(absPosNorm.z, absPosNorm.y)), min(absPosNorm.x, absPosNorm.z));
+				line /= uCubeSize;
+				
+				float lineWidth = 0.05;
+				line = smoothstep(lineWidth, 0.0, 1.0 - line);
+				
+				float light = 1.0 - (length(vPos.xz)) / 10.0;
+				light = pow(light, 1.2);
+								
+				gl_FragColor = vec4(vec3(1.0) * line * light, uColor.w);
 			}
 		</script>
 	</body>
