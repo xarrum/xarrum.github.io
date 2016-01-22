@@ -186,45 +186,23 @@ function InitBuffers(){
 	solidVertexBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, solidVertexBuffer);
 	solidVertices = [
+		-1.0, -1.0, 1.0, // Start
+		-1.0, 1.0, 1.0,
+		1.0, -1.0, 1.0,
 		1.0, 1.0, 1.0,
-		1.0, -1.0, 1.0,
-		-1.0, 1.0, 1.0,
 		
-		1.0, -1.0, 1.0,
-		-1.0, 1.0, 1.0,
-		-1.0, -1.0, 1.0,
-		
+		1.0, -1.0, -1.0,
 		1.0, 1.0, -1.0,
-		1.0, -1.0, -1.0,
-		-1.0, 1.0, -1.0,
-		
-		1.0, -1.0, -1.0,
-		-1.0, 1.0, -1.0,
 		-1.0, -1.0, -1.0,
 		
-		-1.0, 1.0, 1.0,
 		-1.0, 1.0, -1.0,
 		-1.0, -1.0, 1.0,
-		
-		-1.0, -1.0, 1.0,
-		-1.0, 1.0, -1.0,
-		-1.0, -1.0, -1.0,
-		
-		1.0, 1.0, 1.0,
-		1.0, 1.0, -1.0,
-		1.0, -1.0, 1.0,
-		
-		1.0, -1.0, 1.0,
-		1.0, 1.0, -1.0,
-		1.0, -1.0, -1.0,
-		
-		-1.0, 1.0, -1.0,
 		-1.0, 1.0, 1.0,
-		1.0, 1.0, 1.0,
 		
-		1.0, 1.0, 1.0,
+		-1.0, 1.0, 1.0, // Degenerate
 		-1.0, 1.0, -1.0,
-		1.0, 1.0, -1.0,
+		1.0, 1.0, 1.0,
+		1.0, 1.0, -1.0
 		
 		
 	];
@@ -249,6 +227,7 @@ function DrawScene(){
 	cameraPosition = Vector.Zero(3).subtract(cameraPosition);
 
 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
+	//gl.clearColor(1.0, 1.0, 1.0, 1.0);
 
 	// Clear the color as well as the depth buffer.
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -270,8 +249,6 @@ function DrawScene(){
 	
 	var offsetUniform = gl.getUniformLocation(shaderProgram, "uOffset");
 	var colorUniform = gl.getUniformLocation(shaderProgram, "uColor");
-	
-	
 	
 	var cubeSizeUniform = gl.getUniformLocation(shaderProgram, "uCubeSize");
 	gl.uniform1f(cubeSizeUniform, cubeSize);
@@ -297,28 +274,9 @@ function DrawScene(){
 			2.0*y-numCubes+1.0
 			);
 			
-			gl.drawArrays(gl.TRIANGLES, 0, solidVertices.length / 3);
+			gl.drawArrays(gl.TRIANGLE_STRIP, 0, solidVertices.length / 3);
 		}
 	}
-	
-	// Draw wireframe
-	//gl.bindBuffer(gl.ARRAY_BUFFER, wireVertexBuffer);
-	//gl.vertexAttribPointer(vertexPosAttrib, 3, gl.FLOAT, false, 0, 0);
-	//
-	//gl.uniform4f(colorUniform, 1.0, 1.0, 1.0, 1.0);
-	//	
-	//for( y=0; y < numCubes; y++ ){
-	//	for( x=0; x < numCubes; x++ ){
-	//	
-	//		gl.uniform3f(offsetUniform, 
-	//		2.0*x-numCubes+1.0, 
-	//		0.75 * Math.sin(x + time * cubeTimeScale) * Math.cos(y + time * cubeTimeScale), 
-	//		2.0*y-numCubes+1.0
-	//		);
-	//		
-	//		gl.drawArrays(gl.LINES, 0, wireVertices.length / 3);
-	//	}
-	//}
 	
 }
 
