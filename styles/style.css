@@ -1,0 +1,34 @@
+* { 
+	margin: 0; 
+	padding: 0;
+}
+
+body, html { 
+	height:100%; 
+}
+
+div.canvas-float {
+	position:absolute; 
+	width:800px;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	z-index:1; /* This makes text go on top of canvas! Cool!*/
+	text-align:left;
+	background-color:rgba(0, 0, 0, 0.0);
+}
+
+div.canvas-float p {
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:#FFFFFF; 
+	font-size:48px;
+	text-shadow: 2px 2px 8px #000000;
+}
+
+#glcanvas {
+	position:absolute;
+	
+	width:100%;
+	height:100%;
+	
+}

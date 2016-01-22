@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>WebGL Test</title>
+		<link href="styles/style.css" rel="stylesheet" type="text/css">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+	</head>
+	<body onload="Start()" onresize="Resize()">
+		<canvas id="glcanvas">
+			Your browser doesn't appear to support the 
+			<code>&lt;canvas&gt;</code> element.
+		</canvas>
+		<div class="canvas-float">
+			<p>This is some text over a WebGL canvas!<br>Isn't that neat?</p>
+		</div>
+		<script src="scripts/sylvester.js"></script>
+		<script src="scripts/gl_util.js"></script>
+		<script src="scripts/webgl_test.js"></script>
+		<script id="shader-vs" type="x-shader/x-vertex">
+			attribute vec3 aVertexPos;
+
+			uniform mat4 uMVMatrix;
+			uniform mat4 uPMatrix;
+			uniform vec3 uOffset;
+			
+			varying vec4 vPos;
+
+			void main(void)
+			{
+				vPos = vec4(aVertexPos + uOffset, 1.0);
+				if(vPos.y <= 0.0)
+				{
+					vPos.y = -100.0;
+				}
+				gl_Position = uPMatrix * uMVMatrix * vPos;
+			}
+		</script>
+		<script id="shader-fs" type="x-shader/x-fragment">
+			precision mediump float;
+			uniform vec4 uColor;
+			varying vec4 vPos;
+			void main(void)
+			{
+				float brightness = 1.0 - (length(vPos.xz)) / 10.0;
+				brightness = pow(brightness, 1.2);
+				gl_FragColor = vec4(brightness * uColor.xyz, uColor.w);
+			}
+		</script>
+	</body>
+</html>
