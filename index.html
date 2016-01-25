@@ -35,11 +35,14 @@
 			{
 				vPosNorm = vec4(uCubeSize * aVertexPos, 1.0);
 				vPos = vec4(uCubeSize * aVertexPos + uOffset, 1.0);
+
+				// Make the bottom of the cubes go to "infinity"
 				if(vPosNorm.y <= 0.0)
 				{
 					vPos.y = -100.0;
 					vPosNorm.y = -100.0;
 				}
+				
 				gl_Position = uPMatrix * uMVMatrix * vPos;
 			}
 		</script>
@@ -56,13 +59,9 @@
 				absPosNorm.y = clamp(vPosNorm.y, 0.0, 1.0);
 				float line = max(max(min(absPosNorm.x, absPosNorm.y), min(absPosNorm.z, absPosNorm.y)), min(absPosNorm.x, absPosNorm.z));
 				line /= uCubeSize;
-				
 				float lineWidth = 0.05;
 				line = smoothstep(lineWidth, 0.0, 1.0 - line);
-				
-				float light = 1.0 - (length(vPos.xz)) / 10.0;
-				light = pow(light, 1.2);
-								
+				float light = clamp(1.0 - (length(vPos.xz)) / 10.0, 0.0, 1.0);
 				gl_FragColor = vec4(uColor.xyz * line * light, uColor.w);
 			}
 		</script>

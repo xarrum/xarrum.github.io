@@ -3,9 +3,7 @@ var canvas; // The canvas
 var gl; // The GL context
 var shaderProgram; // The shader program
 var vertexPosAttrib; // The vertex position attribute location
-var wireVertexBuffer; // The vertex buffer for wire cube
 var solidVertexBuffer; // The vertex buffer for solid cube
-var wireVertices; // Vertex data for wire cube
 var solidVertices; // Vertex data for solid cube
 
 var cubeSize = 1.75; // Size of the cubes
@@ -31,7 +29,7 @@ function Start(){
 	aspectRatio = canvas.width / canvas.height;
 
 	gl = InitWebGL(canvas);
-
+	
 	if (gl){
 		// Depth testing
 		gl.enable(gl.DEPTH_TEST);
@@ -44,7 +42,7 @@ function Start(){
 		InitBuffers();
 
 		// Draw the scene
-		setInterval(DrawScene, 50);
+		setInterval(DrawScene, 83);
 	}
 }
 
@@ -143,46 +141,7 @@ function GetShader(gl, id){
 	return shader;
 }
 
-function InitBuffers(){
-	wireVertexBuffer = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, wireVertexBuffer);
-	
-	
-	wireVertices = [
-		1.0, 1.0, 1.0,
-		1.0, -1.0, 1.0,
-		1.0, -1.0, 1.0,
-		-1.0, -1.0, 1.0,
-		-1.0, -1.0, 1.0,
-		-1.0, 1.0, 1.0,
-		-1.0, 1.0, 1.0,
-		1.0, 1.0, 1.0,
-		
-		1.0, 1.0, -1.0,
-		1.0, -1.0, -1.0,
-		1.0, -1.0, -1.0,
-		-1.0, -1.0, -1.0,
-		-1.0, -1.0, -1.0,
-		-1.0, 1.0, -1.0,
-		-1.0, 1.0, -1.0,
-		1.0, 1.0, -1.0,
-		
-		1.0, 1.0, 1.0,
-		1.0, 1.0, -1.0,
-		
-		1.0, -1.0, 1.0,
-		1.0, -1.0, -1.0,
-		
-		-1.0, 1.0, 1.0,
-		-1.0, 1.0, -1.0,
-		
-		-1.0, -1.0, 1.0,
-		-1.0, -1.0, -1.0
-		
-	];
-	
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(wireVertices), gl.STATIC_DRAW);
-	
+function InitBuffers(){	
 	solidVertexBuffer = gl.createBuffer();
 	gl.bindBuffer(gl.ARRAY_BUFFER, solidVertexBuffer);
 	solidVertices = [
@@ -227,7 +186,7 @@ function DrawScene(){
 	cameraPosition = Vector.Zero(3).subtract(cameraPosition);
 
 	gl.clearColor(0.0, 0.0, 0.0, 1.0);
-	//gl.clearColor(1.0, 1.0, 1.0, 1.0);
+	//gl.clearColor(0.97, 0.94, 0.92, 1.0);
 
 	// Clear the color as well as the depth buffer.
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -254,7 +213,7 @@ function DrawScene(){
 	gl.uniform1f(cubeSizeUniform, cubeSize);
 	
 	var numCubes = 10;
-	var cubeTimeScale = 0.00005;
+	var cubeTimeScale = 0.000025;
 	
 	// Draw solids
 	gl.bindBuffer(gl.ARRAY_BUFFER, solidVertexBuffer);
