@@ -25,6 +25,24 @@ div.canvas-float p {
 	text-shadow: 2px 2px 8px #000000;
 }
 
+input {
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:#FFF; 
+	font-size:48px;
+	text-shadow: 2px 2px 8px #000000;
+	background-color:rgba(0, 0, 0, 0.0);
+	border: none;
+	border-bottom-style: solid;
+	outline: none;
+}
+input:focus {
+	font-family: 'Open Sans Condensed', sans-serif;
+	color:#FFF; 
+	font-size:48px;
+	text-shadow: 2px 2px 8px #000000;
+	background-color:rgba(0, 0, 0, 0.0);
+}
+
 #glcanvas {
 	position:absolute;
 	

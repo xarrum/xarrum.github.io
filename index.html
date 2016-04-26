@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<head>
 		<meta charset="utf-8">
 		<title>WebGL Test</title>
@@ -12,7 +13,10 @@
 			<code>&lt;canvas&gt;</code> element.
 		</canvas>
 		<div class="canvas-float">
-			<p>Behold!</p>
+			<div ng-app="">
+				<p>Behold! {{name}}</p>
+				<p>Type something here: <input type="text" ng-model="name"></p>
+			</div>
 		</div>
 		<script src="scripts/sylvester.js"></script>
 		<script src="scripts/gl_util.js"></script>
