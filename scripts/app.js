@@ -17,9 +17,7 @@ function Start(){
 	// Get canvas
 	canvas = document.getElementById("glcanvas");
 	
-	if(document.getElementById("cube-size")){
-		cubeSize = Number(document.getElementById("cube-size").textContent);
-	}
+	cubeSize = 0.75;
 
 	// Update canvas size
 	canvas.width = window.innerWidth;

@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>WebGL Test</title>
-		<link href="styles/style.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="styles/style.css" type="text/css">
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 	</head>
 	<body onload="Start()" onresize="Resize()">
@@ -12,16 +12,9 @@
 			Your browser doesn't appear to support the 
 			<code>&lt;canvas&gt;</code> element.
 		</canvas>
-		<div class="canvas-float">
-			<div ng-app="">
-				<p>Behold! {{name}}</p>
-				<p>Type something here: <input type="text" spellcheck="false" ng-model="name"></p>
-			</div>
-		</div>
 		<script src="scripts/sylvester.js"></script>
 		<script src="scripts/gl_util.js"></script>
-		<script src="scripts/webgl_test.js"></script>
-		<jsconstant id="cube-size">0.75</jsconstant>
+		<script src="scripts/app.js"></script>
 		<script id="shader-vs" type="x-shader/x-vertex">
 			precision mediump float;
 			attribute vec3 aVertexPos;
